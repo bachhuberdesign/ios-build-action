@@ -95,23 +95,23 @@ platform :ios do
       end
     end
 
-    project = Xcodeproj::Project.open(Pathname(ENV['PROJECT_PATH']).absolute? ? ENV['PROJECT_PATH'] : "../#{ENV['PROJECT_PATH']}")
-    project.targets.each do |target|
-      UI.message("Configuring target: #{target.name}")
-      configuration = target.build_configurations.find { |bc| bc.name == ENV['CONFIGURATION'] }
-      UI.message("Resolved configuration: #{configuration.name}")
+    # project = Xcodeproj::Project.open(Pathname(ENV['PROJECT_PATH']).absolute? ? ENV['PROJECT_PATH'] : "../#{ENV['PROJECT_PATH']}")
+    # project.targets.each do |target|
+    #   UI.message("Configuring target: #{target.name}")
+    #   configuration = target.build_configurations.find { |bc| bc.name == ENV['CONFIGURATION'] }
+    #   UI.message("Resolved configuration: #{configuration.name}")
 
-      app_identifier = target.name.include?('Notification') ? "#{ENV['BUNDLE_IDENTIFIER']}.NotificationService" : ENV['BUNDLE_IDENTIFIER']
+    #   app_identifier = target.name.include?('Notification') ? "#{ENV['BUNDLE_IDENTIFIER']}.NotificationService" : ENV['BUNDLE_IDENTIFIER']
 
-      UI.message("Resolved app identifier: #{app_identifier}")
-      configuration.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = app_identifier
+    #   UI.message("Resolved app identifier: #{app_identifier}")
+    #   configuration.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = app_identifier
 
-      if use_export_options && !profile_hash[app_identifier].nil?
-        configuration.build_settings['PROVISIONING_PROFILE_SPECIFIER'] = profile_hash[app_identifier]
-        UI.message("Resolved provisioning profile: #{profile_hash[app_identifier]}")
-      end
-    end
-    project.save
+    #   if use_export_options && !profile_hash[app_identifier].nil?
+    #     configuration.build_settings['PROVISIONING_PROFILE_SPECIFIER'] = profile_hash[app_identifier]
+    #     UI.message("Resolved provisioning profile: #{profile_hash[app_identifier]}")
+    #   end
+    # end
+    # project.save
 
     use_workspace = !ENV['WORKSPACE_PATH'].empty?
     use_build_sdk = !ENV['BUILD_SDK'].empty?
@@ -174,8 +174,8 @@ platform :ios do
       clean: false,
       cloned_source_packages_path: use_cloned_source_packages_path ? ENV['CLONED_SOURCE_PACKAGES_PATH'] : nil,
       export_method: ENV['EXPORT_METHOD'],
-      export_options: use_export_options ? ENV['EXPORT_OPTIONS'] : nil,
-      skip_profile_detection: use_export_options,
+      # export_options: use_export_options ? ENV['EXPORT_OPTIONS'] : nil,
+      # skip_profile_detection: use_export_options,
       sdk: use_build_sdk ? ENV['BUILD_SDK'] : nil,
       destination: use_build_destination ? ENV['BUILD_DESTINATION'] : nil,
       build_path: use_build_path ? ENV['BUILD_PATH'] : nil
