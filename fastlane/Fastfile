@@ -137,7 +137,7 @@ platform :ios do
           bc.name == ENV['CONFIGURATION']
         end
       app_identifier =
-        resolve_recursive_build_setting(
+        ENV['BUNDLE_IDENTIFIER'] ? ENV['BUNDLE_IDENTIFIER'] : resolve_recursive_build_setting(
           configuration,
           'PRODUCT_BUNDLE_IDENTIFIER'
         )
