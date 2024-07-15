@@ -141,10 +141,17 @@ platform :ios do
           configuration,
           'PRODUCT_BUNDLE_IDENTIFIER'
         )
+      # Log the resolved app identifier
+      UI.message("Resolved app identifier: #{app_identifier}")
       configuration.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = app_identifier
+
       if use_export_options && !profile_hash[app_identifier].nil?
         configuration.build_settings['PROVISIONING_PROFILE_SPECIFIER'] =
           profile_hash[app_identifier]
+        # Log the resolved provisioning profile
+        UI.message(
+          "Resolved provisioning profile: #{profile_hash[app_identifier]}"
+        )
       end
     end
     project.save
