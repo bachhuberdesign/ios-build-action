@@ -130,31 +130,31 @@ platform :ios do
           "../#{ENV['PROJECT_PATH']}"
         end
       )
-    project.targets.each do |target|
-      UI.message("Configuring target: #{target.name}")
-      configuration =
-        target.build_configurations.find do |bc|
-          bc.name == ENV['CONFIGURATION']
-        end
-      UI.message("Resolved configuration: #{configuration.name}")
-      app_identifier =
-        ENV['BUNDLE_IDENTIFIER'] ? ENV['BUNDLE_IDENTIFIER'] : resolve_recursive_build_setting(
-          configuration,
-          'PRODUCT_BUNDLE_IDENTIFIER'
-        )
-      # Log the resolved app identifier
-      UI.message("Resolved app identifier: #{app_identifier}")
-      configuration.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = app_identifier
+    # project.targets.each do |target|
+    #   UI.message("Configuring target: #{target.name}")
+    #   configuration =
+    #     target.build_configurations.find do |bc|
+    #       bc.name == ENV['CONFIGURATION']
+    #     end
+    #   UI.message("Resolved configuration: #{configuration.name}")
+    #   app_identifier =
+    #     ENV['BUNDLE_IDENTIFIER'] ? ENV['BUNDLE_IDENTIFIER'] : resolve_recursive_build_setting(
+    #       configuration,
+    #       'PRODUCT_BUNDLE_IDENTIFIER'
+    #     )
+    #   # Log the resolved app identifier
+    #   UI.message("Resolved app identifier: #{app_identifier}")
+    #   configuration.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = app_identifier
 
-      if use_export_options && !profile_hash[app_identifier].nil?
-        configuration.build_settings['PROVISIONING_PROFILE_SPECIFIER'] =
-          profile_hash[app_identifier]
-        # Log the resolved provisioning profile
-        UI.message(
-          "Resolved provisioning profile: #{profile_hash[app_identifier]}"
-        )
-      end
-    end
+    #   if use_export_options && !profile_hash[app_identifier].nil?
+    #     configuration.build_settings['PROVISIONING_PROFILE_SPECIFIER'] =
+    #       profile_hash[app_identifier]
+    #     # Log the resolved provisioning profile
+    #     UI.message(
+    #       "Resolved provisioning profile: #{profile_hash[app_identifier]}"
+    #     )
+    #   end
+    # end
     project.save
 
     use_workspace = !ENV['WORKSPACE_PATH'].empty?
