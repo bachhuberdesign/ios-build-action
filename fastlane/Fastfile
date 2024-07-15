@@ -102,7 +102,10 @@ platform :ios do
 
     use_export_options = !ENV['EXPORT_OPTIONS'].empty?
 
+    UI.message("use_export_options: #{use_export_options}")
+
     if use_export_options
+      UI.message('use_export_options')
       doc =
         REXML::Document.new(
           if Pathname(ENV['EXPORT_OPTIONS']).absolute?
@@ -128,10 +131,12 @@ platform :ios do
         end
       )
     project.targets.each do |target|
+      UI.message("Configuring target: #{target.name}")
       configuration =
         target.build_configurations.find do |bc|
           bc.name == ENV['CONFIGURATION']
         end
+      UI.message("Resolved configuration: #{configuration.name}")
       app_identifier =
         ENV['BUNDLE_IDENTIFIER'] ? ENV['BUNDLE_IDENTIFIER'] : resolve_recursive_build_setting(
           configuration,
@@ -199,12 +204,15 @@ platform :ios do
       end
     end
 
+    UI.message('Building the app')
+    UI.message("Scheme is #{ENV['SCHEME']}")
+    UI.message("Configuration is #{ENV['CONFIGURATION']}")
+
     build_app(
       workspace: use_workspace ? ENV['WORKSPACE_PATH'] : nil,
       project: !use_workspace ? ENV['PROJECT_PATH'] : nil,
       configuration: ENV['CONFIGURATION'],
       scheme: ENV['SCHEME'],
-      bundle_identifier: ENV['BUNDLE_IDENTIFIER'],
       output_directory: File.dirname(ENV['OUTPUT_PATH']),
       output_name: File.basename(ENV['OUTPUT_PATH']),
       clean: true,
