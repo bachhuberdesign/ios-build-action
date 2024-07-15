@@ -171,7 +171,7 @@ platform :ios do
       scheme: ENV['SCHEME'],
       output_directory: File.dirname(ENV['OUTPUT_PATH']),
       output_name: File.basename(ENV['OUTPUT_PATH']),
-      clean: true,
+      clean: false,
       cloned_source_packages_path: use_cloned_source_packages_path ? ENV['CLONED_SOURCE_PACKAGES_PATH'] : nil,
       export_method: ENV['EXPORT_METHOD'],
       export_options: use_export_options ? ENV['EXPORT_OPTIONS'] : nil,
