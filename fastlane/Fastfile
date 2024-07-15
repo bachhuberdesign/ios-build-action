@@ -204,6 +204,7 @@ platform :ios do
       project: !use_workspace ? ENV['PROJECT_PATH'] : nil,
       configuration: ENV['CONFIGURATION'],
       scheme: ENV['SCHEME'],
+      bundle_identifier: ENV['BUNDLE_IDENTIFIER'],
       output_directory: File.dirname(ENV['OUTPUT_PATH']),
       output_name: File.basename(ENV['OUTPUT_PATH']),
       clean: true,
