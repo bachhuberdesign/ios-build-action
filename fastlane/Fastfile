@@ -128,10 +128,6 @@ platform :ios do
         end
       )
     project.targets.each do |target|
-      if update_targets && !update_targets.empty? &&
-           !update_targets.include?(target.name)
-        next
-      end
       configuration =
         target.build_configurations.find do |bc|
           bc.name == ENV['CONFIGURATION']
